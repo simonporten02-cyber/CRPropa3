@@ -121,6 +121,8 @@ void PhotoPionProduction::initRate(std::string filename) {
 	}
 
 	infile.close();
+    std::cout << "min/max lorentz factor " << tabLorentz[0] << "/" << tabLorentz.back() << "\n";
+    std::cout << "min/max proton rate " << tabProtonRate[0] << "/" << tabProtonRate.back() << "\n";
 }
 
 double PhotoPionProduction::nucleonMFP(double gamma, double z, bool onProton, double time) const {
@@ -191,7 +193,6 @@ void PhotoPionProduction::process(Candidate *candidate) const {
 				onProton = false;
 			}
 		}
-
 		// check if interaction does not happen
 		if (step < randDistance) {
 			if (totalRate > 0.)
@@ -219,10 +220,11 @@ void PhotoPionProduction::performInteraction(Candidate *candidate, bool onProton
 	int sign = (id > 0) ? 1 : -1;
 
 	// check if below SOPHIA's energy threshold
-	double E_threshold = (photonField->getFieldName() == "CMB") ? 3.72e18 * eV : 5.83e15 * eV;
-	if (EpA * (1 + z) < E_threshold)
+	double E_threshold = (photonField->getFieldName() == "CMB") ? 3.72e18 * eV : 5.83e5 * eV;
+	if (EpA * (1 + z) < E_threshold){
+        std::cout << "event rejected due to too low Energy \n";
 		return;
-
+    }
 	// SOPHIA - input:
 	int nature = 1 - static_cast<int>(onProton);  // 0=proton, 1=neutron
 	double Ein = EpA / GeV;  // GeV is the SOPHIA standard unit
