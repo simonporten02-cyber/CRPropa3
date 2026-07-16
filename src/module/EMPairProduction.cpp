@@ -199,9 +199,9 @@ void EMPairProduction::performInteraction(Candidate *candidate) const {
 	size_t i = closestIndex(E, tabE);  // find closest tabulation point
 	size_t j = random.randBin(tabCDF[i]);
 	if (j <= 0) {
-		KISS_LOG_WARNING 
-			<< "EMPaiProduction: Sampled s value is the lowest tabulated value, which is not physical."
-			<< " The index j will be set to 1 to avoid division by zero.";
+//		KISS_LOG_WARNING 
+//			<< "EMPaiProduction: Sampled s value is the lowest tabulated value, which is not physical."
+//			<< " The index j will be set to 1 to avoid division by zero.";
 		j = 1;  // ensure j is at least 1 to avoid division by
 	}
 	double lo = std::max(4 * mec2 * mec2, tabs[j-1]);  // first s-tabulation point below min(s_kin) = (2 me c^2)^2; ensure physical value
