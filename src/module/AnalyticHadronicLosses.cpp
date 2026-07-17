@@ -56,7 +56,7 @@ namespace crpropa {
 
         // interpolate sigma(E) and kappa(E) from tables (x = log10(E/GeV))
         double E  = c->current.getEnergy(); // J
-        double lgE = std::log10(std::max(E, 1e-30));
+        double lgE = std::log10(std::max(E / GeV, 1e-30));
         double sigma = interpolate(lgE, T->logEGeV, T->sigma_mb) * milli * barn; // m^2
         double kappa = 0.5; // normal assumption for high-energy collisions
 
@@ -82,7 +82,7 @@ namespace crpropa {
     }
 
     bool AnalyticHadronicLosses::isPionOrKaon(int a){
-        return (a==211 || a==321 || a==311);
+        return (a==211 || a==321 || a==311 || a==130 || a==310);
     }
 
     void AnalyticHadronicLosses::setLimit(double v){ 

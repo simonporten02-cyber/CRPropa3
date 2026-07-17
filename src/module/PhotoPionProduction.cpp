@@ -218,14 +218,15 @@ void PhotoPionProduction::performInteraction(Candidate *candidate, bool onProton
 	// For anti-protons / neutrons assume charge symmetry and change all
 	// interaction products from particle <--> anti-particle (sign)
 	int sign = (id > 0) ? 1 : -1;
+
+	// check if below SOPHIA's energy threshold
+	double Ein = EpA / GeV;  // GeV is the SOPHIA standard unit
+	double epsThreshold = epsMinInteraction(onProton, Ein);
+	if (epsThreshold > photonField->getMaximumPhotonEnergy(z)/eV) {
+		return;   
+ 	}
 	// SOPHIA - input:
 	int nature = 1 - static_cast<int>(onProton);  // 0=proton, 1=neutron
-	double Ein = EpA / GeV;  // GeV is the SOPHIA standard unit
-    double epsThreshold = epsMinInteraction(onProton, Ein);
-    if (epsThreshold > photonField->getMaximumPhotonEnergy(z)/eV) {
-        std::cout << "event rejected due to too low Energy \n";
-		return;   
-    }
 	double eps = sampleEps(onProton, EpA, z) / GeV;  // GeV for SOPHIA
 
 	// SOPHIA - output:

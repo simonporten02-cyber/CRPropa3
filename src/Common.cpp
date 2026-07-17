@@ -51,12 +51,24 @@ std::string getDataPath(std::string filename) {
 	{
 		std::string _path = removeNullCharacter(executable_path() + "../data");
 		if (is_directory(_path)) {
-			dataPath = _path;
+			dataPath = removeNullCharacter(_path);
 			KISS_LOG_INFO << "getDataPath: use executable path, " << dataPath
 					<< std::endl;
 			return concat_path(dataPath, filename);
 		}
 	}
+
+#ifdef CRPROPA_BINARY_DIR
+	{
+		std::string _path = CRPROPA_BINARY_DIR "/data";
+		if (is_directory(_path)) {
+			dataPath = removeNullCharacter(_path);
+			KISS_LOG_INFO
+			<< "getDataPath: use binary path, " << dataPath << std::endl;
+			return concat_path(dataPath, filename);
+		}
+	}
+#endif
 
 	dataPath = "data";
 	KISS_LOG_INFO << "getDataPath: use default, " << dataPath << std::endl;
@@ -66,11 +78,11 @@ std::string getDataPath(std::string filename) {
 
 std::string getInstallPrefix()
 {
-  std::string _path = "";
-  #ifdef CRPROPA_INSTALL_PREFIX
-    _path += CRPROPA_INSTALL_PREFIX;
-  #endif
-  return _path;
+	std::string _path = "";
+	#ifdef CRPROPA_INSTALL_PREFIX
+		_path += CRPROPA_INSTALL_PREFIX;
+	#endif
+	return _path;
 };
 
 double interpolate(double x, const std::vector<double> &X,
@@ -138,6 +150,12 @@ size_t closestIndex(double x, const std::vector<double> &X) {
 		return i0;
 	else
 		return i1;
+}
+
+std::string splitFilename(const std::string str) {
+	std::size_t found = str.find_last_of("/\\");
+	std::string s = str.substr(found + 1);
+	return s;
 }
 
 } // namespace crpropa

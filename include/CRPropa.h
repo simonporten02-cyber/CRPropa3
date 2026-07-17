@@ -9,6 +9,7 @@
 #include "crpropa/Geometry.h"
 #include "crpropa/Grid.h"
 #include "crpropa/GridTools.h"
+#include "crpropa/InteractionRates.h"
 #include "crpropa/Logging.h"
 #include "crpropa/Module.h"
 #include "crpropa/ModuleList.h"
@@ -137,11 +138,6 @@
  * @{ @brief File outputs.
  * @}
  *
- * \defgroup MagneticLenses Magnetic Lenses
- * @{ @brief Lensing technique to account for deflections in the galactic
- * magnetic field.
- * @}
- *
  * \defgroup Acceleration Acceleration Processes
  * @{ @brief Modules and techniques to simualte particle acceleration
  *
@@ -154,10 +150,5 @@
  * @{ @brief Collection of helper functions and modules.
  * @}
  */
-
-
-
-
-
 
 #endif // CRPROPA_H

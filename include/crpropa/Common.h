@@ -14,6 +14,13 @@ namespace crpropa {
  * @{
  */
 
+// Maximum nuclear charge number, neutron number, and flat-array stride
+// for all nuclear interaction tables (PhotoDisintegration, NuclearDecay, ParticleMass).
+// Coverage matches PD_Talys1.9: Z up to Pb (82), N up to Pb-214 (132).
+static const int NUCLEAR_ZMAX    = 82;
+static const int NUCLEAR_NMAX    = 132;
+static const int NUCLEAR_NSTRIDE = 133; // = NUCLEAR_NMAX + 1
+
 // Returns the full path to a CRPropa data file
 std::string getDataPath(std::string filename);
 
@@ -49,8 +56,10 @@ double interpolateEquidistant(double x, double lo, double hi,
 
 // Find index of value in a sorted vector X that is closest to x
 size_t closestIndex(double x, const std::vector<double> &X);
-/** @}*/
 
+// Takes the filename from a full data path. Used in EM* modules.
+std::string splitFilename(const std::string str);
+/** @}*/
 
 // pow implementation as template for integer exponents pow_integer<2>(x)
 // evaluates to x*x
