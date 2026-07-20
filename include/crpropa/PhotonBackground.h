@@ -126,7 +126,7 @@ class TabularPhotonField: public PhotonField {
 		 * @param isRedshiftDependent  Whether or not the given field is redshift dependent
 		 * @param isTimeDependent  Whether or not the given field is time dependent
 		 */
-		TabularPhotonField(const std::string fieldName, const bool isRedshiftDependent = true, const bool isTimeDependent = false);
+		TabularPhotonField(const std::string fieldName, const bool isRedshiftDependent = true);
 
 		/** Returns photon density dependend on energy, redshift and position
 		 * Returns the photon density for a specific photon energy, redshift and position

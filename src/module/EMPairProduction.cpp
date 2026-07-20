@@ -229,6 +229,7 @@ void EMPairProduction::process(Candidate *candidate) const {
 	
 	// scale particle energy instead of background photon energy
 	double z = candidate->getRedshift();
+	double time = candidate->getTime();
 	double E = candidate->current.getEnergy() * (1 + z);
 	Vector3d position = candidate->current.getPosition();
 	

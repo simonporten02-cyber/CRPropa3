@@ -10,10 +10,10 @@
 
 namespace crpropa {
 
-TabularPhotonField::TabularPhotonField(std::string fieldName, bool isRedshiftDependent, bool isTimeDependent) {
+TabularPhotonField::TabularPhotonField(std::string fieldName, bool isRedshiftDependent) {
 	this->fieldName = fieldName;
 	this->isRedshiftDependent = isRedshiftDependent;
-	this->isTimeDependent = isTimeDependent;
+	this->isTimeDependent = false;
 
 	this->isPositionDependent = false;
 	this->surface = NULL;
