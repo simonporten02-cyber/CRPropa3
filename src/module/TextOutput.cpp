@@ -361,6 +361,10 @@ void TextOutput::load(const std::string &filename, ParticleCollector *collector)
 		c->created.setDirection(Vector3d(x, y, z) * lengthScale); // P1x, P1y, P1z
 		stream >> val_d;
 		c->setWeight(val_d); // W
+        std::string tag;
+        stream >> tag;
+        c->setTagOrigin(tag);
+        
 
 		collector->process(c);
 	}
