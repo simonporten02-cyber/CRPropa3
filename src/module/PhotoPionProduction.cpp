@@ -121,8 +121,8 @@ void PhotoPionProduction::initRate(std::string filename) {
 	}
 
 	infile.close();
-    std::cout << "min/max lorentz factor " << tabLorentz[0] << "/" << tabLorentz.back() << "\n";
-    std::cout << "min/max proton rate " << tabProtonRate[0] << "/" << tabProtonRate.back() << "\n";
+    std::cout << "min/max lorentz factor " << tabLorentz.front() << "/" << tabLorentz.back() << "\n";
+    std::cout << "min/max proton rate " << tabProtonRate.front() << "/" << tabProtonRate.back() << "\n";
 }
 
 double PhotoPionProduction::nucleonMFP(double gamma, double z, bool onProton, double time) const {
@@ -194,6 +194,9 @@ void PhotoPionProduction::process(Candidate *candidate) const {
 			}
 		}
 		// check if interaction does not happen
+		if (meanFreePath == std::numeric_limits<double>::max()) {
+			return;
+		}
 		if (step < randDistance) {
 			if (totalRate > 0.)
 				candidate->limitNextStep(limit / totalRate);
