@@ -559,7 +559,8 @@ double PhotoPionProduction::crossection(double eps, bool onProton) const {
 	if (eps > 0.85) {
 		double ss1 = (eps - 0.85) / 0.69;
 		double ss2 = onProton? 29.3 : 26.4;
-		ss2 *= std::pow(s, -0.34) + 59.3 * std::pow(s, 0.095);
+		ss2 *= std::pow(s, -0.34);
+        ss2 += 59.3 * std::pow(s, 0.095);
 		cs_multidiff = (1. - std::exp(-ss1)) * ss2;
 		cs_multi = 0.89 * cs_multidiff;
 		// diffractive scattering:
