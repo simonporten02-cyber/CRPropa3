@@ -231,7 +231,10 @@ void PhotoPionProduction::performInteraction(Candidate *candidate, bool onProton
 	// SOPHIA - input:
 	int nature = 1 - static_cast<int>(onProton);  // 0=proton, 1=neutron
 	double eps = sampleEps(onProton, EpA, z) / GeV;  // GeV for SOPHIA
-
+    if (eps < 0) {
+        std::cout << "skipped due to bad statistics!\n";
+        return;    
+    }
 	// SOPHIA - output:
 	double outputEnergy[5][2000];  // [GeV/c, GeV/c, GeV/c, GeV, GeV/c^2]
 	int outPartID[2000];
@@ -433,6 +436,7 @@ double PhotoPionProduction::sampleEps(bool onProton, double E, double z) const {
 		if (random.rand() * pEpsMax < pEps)
 			return eps * eV;
 	}
+    return -1.;
 	throw std::runtime_error("error: no photon found in sampleEps, please make sure that photon field provides photons for the interaction by adapting the energy range of the tabulated photon field.");
 }
 
